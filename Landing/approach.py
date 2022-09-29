@@ -28,4 +28,9 @@ destination_log = float(input("Enter Destination Longitude : "))
 
 distance = findDistance(source_lat, source_log, destination_lat, destination_log)
 
-createCheckpoints(source_lat, source_log, destination_lat, destination_log)
+# createCheckpoints(source_lat, source_log, destination_lat, destination_log)
+
+"""
+19.29328426200737, 72.85724878458772
+19.295754777030616, 72.84874155988547
+"""
