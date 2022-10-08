@@ -6,25 +6,27 @@ def checkPath(checkpointss):
     copied_checkpoint = checkpointss
     while True:
         plane_coordinates =  list(map(float,input("Enter Plane coordinates : ").split()))
+        plane_altitude = float(input('Enter Altitude : '))
+        curved_altitude = cp.findaltitude(plane_coordinates[0],plane_coordinates[1],destination_lat,destination_log)
         checkrange(plane_coordinates)
+        print(curved_altitude)
         counter = 0
         for i in range(1,len(copied_checkpoint)):
-            if plane_coordinates[1] > checkpoints[i][1]:
+            if plane_coordinates[1] > checkpoints[i][1] and plane_altitude:
                 dist_log = abs(plane_coordinates[1] - checkpoints[i][1])
                 dist_lat = abs(plane_coordinates[0] - checkpoints[i][0]) 
                 if(dist_log > 6.56168):
                     print('New Route')
                     checkpoints = cp.create_checkpoint(plane_coordinates[0],plane_coordinates[1],destination_lat, destination_log, plane_length)
                     print(checkpoints)
-                    checkPath(checkpoints) 
-                    
+                    checkPath(checkpoints)  
                 print(f'diff {dist_lat} in straight & {dist_log} in Left ')
                 checkpointss.pop(i)
                 break
             elif plane_coordinates[1] < checkpointss[i][1]:
                 dist_log = abs(plane_coordinates[1] - checkpointss[i][1]) 
                 dist_lat = abs(plane_coordinates[0] - checkpointss[i][0]) 
-                if(dist_log > 6.56168):
+                if(dist_log > 6.56168): 
                     print('New Route')
                     checkpoints = cp.create_checkpoint(plane_coordinates[0],plane_coordinates[1],destination_lat, destination_log, plane_length)
                     print(checkpoints)
@@ -54,6 +56,17 @@ source_lat = 0
 source_log = 0
 destination_lat = 100
 destination_log = 100
+altitude = 45
+
+
+"""
+source_lat = 19.045510609950483
+source_log = 72.81939707849406
+destination_lat = 19.04506681883475
+destination_log = 72.82125061653593
+"""
+
+
 """ source_lat = 21.99999826405264
 source_log = 24.99999574717875
 destination_lat = 22.000034324111308
@@ -61,5 +74,7 @@ destination_log = 25.002421134682407 """
 plane_length = 2
 
 checkpoints = cp.create_checkpoint(source_lat, source_log,destination_lat, destination_log, plane_length)
+# curved_altitude = cp.findaltitude(source_lat,source_log,destination_lat,destination_log)
+
 # print(checkpoints)
 checkPath(checkpoints)

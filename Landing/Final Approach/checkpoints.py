@@ -4,7 +4,8 @@ from math import sin, cos, sqrt, atan2, radians
 
 def create_checkpoint(sl1,sl2,dl1,dl2,length):
     # distance = findDistance(sl1,sl2,dl1,dl2)
-    distance = sl1 - dl1
+    distance = abs(sl1 - dl1)
+    print(distance)
     no_checkpoits = distance / (2*length)
     return list(getEquidistantPoints((sl1,sl2),(dl1,dl2),math.ceil(no_checkpoits)))
 
@@ -15,6 +16,8 @@ def findaltitude(sl1,sl2,dl1,dl2):
     x= sl1 - dl1 # x = distance
     res = (x**2)/880.14
     return res
+
+# print(create_checkpoint(0,0,200,200,2))
 
 """
 
