@@ -1,17 +1,15 @@
 import cv2
-import pyautogui
-import imutils
 import numpy as np
 
 # width,height = pyautogui.size()
 cap = cv2.VideoCapture(1)
 
 colour_ranges = {"RED":[[140, 85, 110], [348, 255, 255]],
-          "BLUE" : [[94, 80, 2], [126, 255, 255]],
-          "GREEN" : [[50, 52, 50], [85, 255, 260]],
-          "YELLOW" : [[15, 40, 50], [40, 255, 255]],
-          "ORANGE" : [[10, 100, 20], [25, 255, 255]]}
-
+                 "BLUE" : [[94, 80, 2], [126, 255, 255]],
+                 "GREEN" : [[50, 52, 50], [85, 255, 260]],
+                 "YELLOW" : [[15, 40, 50], [40, 255, 255]],
+                 "ORANGE" : [[10, 100, 20], [25, 255, 255]]}
+"""
 def draw_leftTop_Grid(frame,height,width):
     h = height // 2
     w = width // 2
@@ -40,6 +38,7 @@ def draw_rightDown_Grid(frame,height,width):
     cv2.line(frame,(w+w//2,h),(w + w//2,height),(255,0,0),3) 
     return
 
+"""
 """ 
 def frame_grid(frame,height,width):
     cv2.line(frame,(0,height//2),(width,height//2),(255,0,0),3) 
@@ -48,15 +47,23 @@ def frame_grid(frame,height,width):
 """
 
 def draw_horizontal_grid(frame,height,width):
+    """
     h = height // 3
     cv2.line(frame,(0,h),(width,h),(255,0,0),3)
     cv2.line(frame,(0,h+h),(width,h+h),(255,0,0),3)
+    """
+    h = height // 2
+    cv2.line(frame,(0,h),(width,h),(255,0,0),3)
     return
 
 def draw_vertical_grid(frame,height,width):
+    """
     w = width // 3
     cv2.line(frame,(w,0),(w,height),(255,0,0),3)
     cv2.line(frame,(w+w,0),(w+w,height),(255,0,0),3)
+    """
+    w = width // 2
+    cv2.line(frame,(w,0),(w,height),(255,0,0),3)
     return
 
 
@@ -67,6 +74,7 @@ def frame_grid(frame,height,width):
 
 
 def showDirection(circle_x,circle_y,height,width):
+    """
     h = height // 3
     w = width // 3
 
@@ -98,6 +106,8 @@ def showDirection(circle_x,circle_y,height,width):
             print('Zone is in Bottom Right')
 
     """
+    x = width // 2
+    y = height // 2
     if(circle_x <= x and circle_y <= y):
         print('Circle is in 1st Quadrant')
     
@@ -109,7 +119,7 @@ def showDirection(circle_x,circle_y,height,width):
     
     elif(circle_x >= x and circle_y >= y):
         print('Cirlce is in 4th Quadrant')
-    """
+    
 
 
 def grid(col):
@@ -131,7 +141,7 @@ def grid(col):
         if circles is not None:
             circles = np.round(circles[0, :]).astype("int")
             cv2.circle(frame, center=(circles[0, 0], circles[0, 1]), radius=circles[0, 2], color=(0, 0, 0), thickness=2)
-            cv2.line(frame,(circles[0,0],circles[0,1]),(width//2,height//2),(0,255,0),3) 
+            cv2.line(output,(circles[0,0],circles[0,1]),(width//2,height//2),(0,255,0),3) 
             showDirection(circles[0,0],circles[0,1],height,width)       
         output_frame = cv2.bitwise_and(frame,frame,mask=frame_lab)
         cv2.imshow("Frame", frame)
